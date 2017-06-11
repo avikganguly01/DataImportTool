@@ -77,7 +77,8 @@ public class LoanWorkbookPopulator extends AbstractWorkbookPopulator {
     private static final int LOOKUP_CLIENT_NAME_COL = 42;
     private static final int LOOKUP_ACTIVATION_DATE_COL = 43;
     private static final int GROUP_ID = 41;
-    private static final int LINK_ACCOUNT_ID = 44;
+    private static final int LINK_ACCOUNT_ID = 45;
+    private static final int LOOKUP_EXTERNAL_ID_COL = 44;
     @SuppressWarnings("CPD-END")
 	
 	public LoanWorkbookPopulator(OfficeSheetPopulator officeSheetPopulator, ClientSheetPopulator clientSheetPopulator,
@@ -167,7 +168,8 @@ public class LoanWorkbookPopulator extends AbstractWorkbookPopulator {
             worksheet.setColumnWidth(REPAYMENT_TYPE_COL, 4300);
             worksheet.setColumnWidth(LOOKUP_CLIENT_NAME_COL, 6000);
             worksheet.setColumnWidth(LOOKUP_ACTIVATION_DATE_COL, 6000);
-            worksheet.setColumnWidth( EXTERNAL_ID_COL, 6000);
+            worksheet.setColumnWidth(LOOKUP_EXTERNAL_ID_COL, 6000);
+            worksheet.setColumnWidth(EXTERNAL_ID_COL, 6000);
             worksheet.setColumnWidth(CHARGE_ID_1, 6000);
             worksheet.setColumnWidth(CHARGE_AMOUNT_1, 6000);
             worksheet.setColumnWidth(CHARGE_DUE_DATE_1, 6000);
@@ -207,6 +209,7 @@ public class LoanWorkbookPopulator extends AbstractWorkbookPopulator {
             writeString(REPAYMENT_TYPE_COL, rowHeader, "Repayment Type");
             writeString(LOOKUP_CLIENT_NAME_COL, rowHeader, "Client Name");
             writeString(LOOKUP_ACTIVATION_DATE_COL, rowHeader, "Client Activation Date");
+            writeString(LOOKUP_EXTERNAL_ID_COL, rowHeader, "External Id");
             writeString(EXTERNAL_ID_COL, rowHeader, "External Id");
             writeString(CHARGE_ID_1,rowHeader,"Charge Id");
             writeString(CHARGE_AMOUNT_1, rowHeader, "Charged Amount");
@@ -293,7 +296,7 @@ public class LoanWorkbookPopulator extends AbstractWorkbookPopulator {
 	        	DataValidationConstraint amortizationConstraint = validationHelper.createExplicitListConstraint(new String[] {"Equal principal payments","Equal installments"});
 	        	DataValidationConstraint interestMethodConstraint = validationHelper.createExplicitListConstraint(new String[] {"Flat","Declining Balance"});
 	        	DataValidationConstraint interestCalculationPeriodConstraint = validationHelper.createExplicitListConstraint(new String[] {"Daily","Same as repayment period"});
-	        	DataValidationConstraint repaymentStrategyConstraint = validationHelper.createExplicitListConstraint(new String[] {"Penalties, Fees, Interest, Principal order","HeavensFamily Unique","Creocore Unique","Overdue/Due Fee/Int,Principal","Principal, Interest, Penalties, Fees Order","Interest, Principal, Penalties, Fees Order", "Early Repayment Strategy"});
+	        	DataValidationConstraint repaymentStrategyConstraint = validationHelper.createExplicitListConstraint(new String[] {"Mifos style","Heavensfamily","Creocore","RBI (India)","Principal Interest Penalties Fees Order","Interest Principal Penalties Fees Order"});
 	        	DataValidationConstraint arrearsToleranceConstraint = validationHelper.createIntegerConstraint(DataValidationConstraint.OperatorType.GREATER_OR_EQUAL, "0", null);
 	        	DataValidationConstraint graceOnPrincipalPaymentConstraint = validationHelper.createIntegerConstraint(DataValidationConstraint.OperatorType.GREATER_OR_EQUAL, "0", null);
 	        	DataValidationConstraint graceOnInterestPaymentConstraint = validationHelper.createIntegerConstraint(DataValidationConstraint.OperatorType.GREATER_OR_EQUAL, "0", null);
